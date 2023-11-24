@@ -375,8 +375,8 @@ class _ReorderableFlexContentState extends State<_ReorderableFlexContent>
   void _scrollTo(BuildContext context) {
     if (_scrolling) return;
     final RenderObject contextObject = context.findRenderObject()!;
-    final RenderAbstractViewport viewport =
-        RenderAbstractViewport.of(contextObject);
+    // final RenderAbstractViewport viewport =
+    //     RenderAbstractViewport.of(contextObject);
     // If and only if the current scroll offset falls in-between the offsets
     // necessary to reveal the selected context at the top or bottom of the
     // screen, then it is already on-screen.
@@ -387,11 +387,19 @@ class _ReorderableFlexContentState extends State<_ReorderableFlexContent>
       final double scrollOffset = _scrollController.offset;
       final double topOffset = max(
         _scrollController.position.minScrollExtent,
-        viewport.getOffsetToReveal(contextObject, 0.0).offset - margin,
+        (RenderAbstractViewport.of(contextObject)
+                    ?.getOffsetToReveal(contextObject, 0.0)
+                    ?.offset ??
+                0) -
+            margin,
       );
       final double bottomOffset = min(
         _scrollController.position.maxScrollExtent,
-        viewport.getOffsetToReveal(contextObject, 1.0).offset + margin,
+        (RenderAbstractViewport.of(contextObject)
+                    ?.getOffsetToReveal(contextObject, 1.0)
+                    ?.offset ??
+                0) +
+            margin,
       );
       final bool onScreen =
           scrollOffset <= topOffset && scrollOffset >= bottomOffset;

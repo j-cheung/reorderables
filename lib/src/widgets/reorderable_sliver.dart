@@ -497,8 +497,8 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
   void _scrollTo(BuildContext context) {
     if (_scrolling) return;
     final RenderObject contextObject = context.findRenderObject()!;
-    final RenderAbstractViewport viewport =
-        RenderAbstractViewport.of(contextObject);
+    // final RenderAbstractViewport viewport =
+    //     RenderAbstractViewport.of(contextObject);
 
 //    if (_scrollController.positions.isEmpty) {
 //      debugPrint('${DateTime.now().toString().substring(5, 22)} reorderable_sliver.dart(537) $this._scrollTo: empty pos');
@@ -521,11 +521,21 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
     final double scrollOffset = _scrollController.offset;
     final double topOffset = max(
       _scrollController.position.minScrollExtent,
-      viewport.getOffsetToReveal(contextObject, 0.0).offset - margin,
+      // viewport.getOffsetToReveal(contextObject, 0.0).offset - margin,
+      (RenderAbstractViewport.of(contextObject)
+                  ?.getOffsetToReveal(contextObject, 0.0)
+                  ?.offset ??
+              0) -
+          margin,
     );
     final double bottomOffset = min(
       _scrollController.position.maxScrollExtent,
-      viewport.getOffsetToReveal(contextObject, 1.0).offset + margin,
+      // viewport.getOffsetToReveal(contextObject, 1.0).offset + margin,
+      (RenderAbstractViewport.of(contextObject)
+                  ?.getOffsetToReveal(contextObject, 1.0)
+                  ?.offset ??
+              0) +
+          margin,
     );
     final bool onScreen =
         scrollOffset <= topOffset && scrollOffset >= bottomOffset;
