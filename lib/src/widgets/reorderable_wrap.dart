@@ -496,7 +496,7 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
   @override
   void didChangeDependencies() {
     _scrollController = widget.controller ??
-        PrimaryScrollController.of(context) ??
+        PrimaryScrollController.maybeOf(context) ??
         ScrollController();
     super.didChangeDependencies();
   }
@@ -1237,7 +1237,7 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
     }
 
     if (widget.controller != null &&
-        PrimaryScrollController.of(context) == null) {
+        PrimaryScrollController.maybeOf(context) == null) {
       return (widget.buildItemsContainer ?? defaultBuildItemsContainer)(
           context, widget.direction, wrappedChildren);
     } else {

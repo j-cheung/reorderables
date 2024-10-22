@@ -317,7 +317,7 @@ class _ReorderableFlexContentState extends State<_ReorderableFlexContent>
     }
 
     _scrollController = widget.scrollController ??
-        PrimaryScrollController.of(context) ??
+        PrimaryScrollController.maybeOf(context) ??
         ScrollController();
 
     if (_scrollController.hasClients) {
@@ -890,7 +890,7 @@ class _ReorderableFlexContentState extends State<_ReorderableFlexContent>
 //      );
 
     if (widget.scrollController != null &&
-        PrimaryScrollController.of(context) == null) {
+        PrimaryScrollController.maybeOf(context) == null) {
       return (widget.buildItemsContainer ?? defaultBuildItemsContainer)(
           context, widget.direction, wrappedChildren);
     } else {

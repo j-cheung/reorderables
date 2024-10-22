@@ -384,7 +384,7 @@ class _ReorderableSliverListState extends State<ReorderableSliverList>
     }
 
     _scrollController = widget.controller ??
-        PrimaryScrollController.of(context) ??
+        PrimaryScrollController.maybeOf(context) ??
         ScrollController();
 
     _attachedScrollPosition =
